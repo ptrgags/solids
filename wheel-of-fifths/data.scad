@@ -15,3 +15,8 @@ NOTES = [
     ["A#", "D#", "G#", "C#", "F#", "B", "E"],
     ["D#", "G#", "C#", "F#", "B", "E", "A"],
 ];
+
+MODE_LABELS = ["Loc", "Phr", "Aeo", "Dor", "Mix", "Ion", "Lyd"];
+DEGREE_LABELS = ["vii", "iii", "vi", "ii", "V", "I", "IV"];
+TRIAD_LABELS = ["o", "m", "m", "m", "M", "M", "M"];
+SEVENTH_LABELS = ["ø7", "m7", "m7", "m7", "7", "M7", "M7"];
