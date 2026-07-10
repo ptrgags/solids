@@ -2,7 +2,8 @@ include <../common/units.scad>
 include <../common/color_layer.scad>
 include <./data.scad>
 
-COLOR = "all";
+// Which color to view
+COLOR = "all"; // [all, gray, white]
 
 $fa = 1;
 $fs = 0.1;
@@ -18,6 +19,8 @@ BASE_WIDTH = 9 * INCH;
 BASE_HEIGHT = 8 * INCH;
 BASE_THICKNESS = 1 * CM;
 BASE_DISC_THICKNESS = 0.5 * BASE_THICKNESS;
+NOTE_DISC_THICKNESS = 1 * MM;
+NOTE_DISC_Z = 0.5 * BASE_THICKNESS + BASE_DISC_THICKNESS;
 ARM_THICKNESS = BASE_THICKNESS;
 
 X_DISC = -1 * INCH;
@@ -35,6 +38,14 @@ module turntable_arm() {
   }
 }
 
+module note_wheel() {
+  linear_extrude(1 * MM)
+  difference() {
+    circle(DISC_OUTER_RADIUS);
+    note_labels();
+  }
+}
+
 module turntable() {
   union() {
     // rectangle for the base
@@ -49,6 +60,9 @@ module turntable() {
       DISC_OUTER_RADIUS,
       center=true
     );
+    
+    translate([X_DISC, 0, NOTE_DISC_Z])
+    note_wheel();
     
     // taller cylinder for the spindle where records go
     spindle_radius = DISC_INNER_RADIUS - DISC_CLEARANCE;
@@ -104,11 +118,7 @@ module note_labels() {
 color_layer("gray")
 turntable();
 
-translate([X_DISC, 0, 0.5 * INCH])
-disc();
-
-
-
 color_layer("white")
-translate([X_DISC, 0, 2 * INCH])
+translate([X_DISC, 0, NOTE_DISC_Z])
+linear_extrude(1 * MM)
 note_labels();

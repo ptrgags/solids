@@ -10,8 +10,8 @@ NOTES = [
     ["G", "C", "F", "Bb", "Eb", "Ab", "Db"],
     ["C", "F", "Bb", "Eb", "Ab", "Db", "Gb"],
     // this one could use enharmonic equivalents... but that would get cramped.
-    ["F", "Bb", "Eb", "Ab", "Db", "Gb", "Cb"],
     // past 6:00 we now think in sharps instead of flats
-    ["D#", "G#", "C#", "F#", "B", "E", "A"],
+    ["E#", "A#", "D#", "G#", "C#", "F#", "B"],
     ["A#", "D#", "G#", "C#", "F#", "B", "E"],
+    ["D#", "G#", "C#", "F#", "B", "E", "A"],
 ];
