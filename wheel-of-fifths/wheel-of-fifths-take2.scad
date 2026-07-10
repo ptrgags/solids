@@ -1,16 +1,29 @@
 include <../common/units.scad>
 include <../common/color_layer.scad>
+include <../common/part.scad>
 include <./data.scad>
 
-// Which color to view
-COLOR = "all"; // [all, gray, white, purple]
+// PARAMETERS ==========================================
 
 $fa = 1;
 $fs = 0.1;
 CONVEXITY = 5;
 
+// Which color to view
+COLOR = "all"; // [all, gray, white, purple]
+
+// Either view the record player base, or the disc overlay
+PART = "base"; // [base, disc]
+
+// Which mode to select
+WHEEL = "modes"; //[modes, degrees, triads, sevenths]
+
+// When base is selected, set this to true to preview
 PREVIEW = false;
+// change this value from 0-11 to rotate the disk
 PREVIEW_INDEX = 3;
+
+
 
 // Dimensions based on the dimensions of a CD
 DISC_OUTER_DIAMETER = 7 * INCH;
@@ -170,18 +183,35 @@ module label_disc(title, labels) {
   }
 }
 
+module selected_disc() {
+  if (WHEEL == "modes") {
+    label_disc("Parallel Modes", MODE_LABELS);
+  } else if (WHEEL == "degrees") {
+    label_disc("Scale Degrees", DEGREE_LABELS);
+  } else if (WHEEL == "triads") {
+    label_disc("Triads", TRIAD_LABELS);
+  } else if (WHEEL == "sevenths") {
+    label_disc("Seventh Chords", SEVENTH_LABELS);
+  }
+}
+
 // SCENE ==========================================
 
-color_layer("gray")
-turntable();
+part("base") {
+  color_layer("gray")
+  turntable();
 
-color_layer("white")
-translate([X_DISC, 0, NOTE_DISC_Z])
-linear_extrude(1 * MM)
-note_labels();
+  color_layer("white")
+  translate([X_DISC, 0, NOTE_DISC_Z])
+  linear_extrude(1 * MM)
+  note_labels();
 
-if (PREVIEW) {
-  translate([X_DISC, 0, 0.5 * INCH])
-  rotate([0, 0, PREVIEW_INDEX * SECTOR_THETA])
-  label_disc("Parallel Modes", MODE_LABELS);
+  if (PREVIEW) {
+    translate([X_DISC, 0, 0.5 * INCH])
+    rotate([0, 0, PREVIEW_INDEX * SECTOR_THETA])
+    selected_disc();
+  }
 }
+
+part("disc")
+selected_disc();
