@@ -1,7 +1,8 @@
 include <../common/units.scad>
 include <../common/color_layer.scad>
+include <./data.scad>
 
-COLOR = "gray";
+COLOR = "all";
 
 $fa = 1;
 $fs = 0.1;
@@ -81,7 +82,24 @@ module to_sector(r_index, theta_index) {
   children();
 }
 
+module note_label(label) {
+  LABEL_SIZE = 0.6;
+  rotate([0, 0, -90])
+  scale([LABEL_SIZE, LABEL_SIZE, 1])
+  text(label, halign="center", valign="center");
+}
+
+module note_labels() {
+  for (i = [0:6], j=[0:11]) {
+    label = NOTES[j][i];
+    
+    to_sector(i, j)
+    note_label(label);
+  }
+}
+
 // SCENE ==========================================
+
 
 color_layer("gray")
 turntable();
@@ -90,8 +108,7 @@ translate([X_DISC, 0, 0.5 * INCH])
 disc();
 
 
+
+color_layer("white")
 translate([X_DISC, 0, 2 * INCH])
-for(i=[0:6]) {
-  to_sector(i, 3)
-  circle(5 * MM);
-}
+note_labels();
