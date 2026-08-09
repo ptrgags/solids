@@ -46,7 +46,7 @@ module shallow_cut() {
     -0.5 * OVERALL_WIDTH_Y, 
     0.5 * THICKNESS_PLATE
   ])
-  linear_extrude(0.5 * THICKNESS_PLATE)
+  linear_extrude(0.5 * THICKNESS_PLATE + 0.1) //The arbitrary added depth of 0.1 avoids coplanar faces which glitch in the preview render. -LM
   square([OVERALL_WIDTH_X, OVERALL_WIDTH_Y]);
 }
 
