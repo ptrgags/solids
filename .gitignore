@@ -2,3 +2,6 @@
 # If a model needs an input STL file, override this in a .gitignore local
 # to a particular project
 *.stl
+
+# macOS metadata
+.DS_Store
